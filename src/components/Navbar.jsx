@@ -48,7 +48,10 @@ const Navbar = () => {
             <span className='sm:block hidden'> | Software engineer</span>
           </p>
         </Link>
-
+        
+        <a className='list-none hidden sm:flex flex-row gap-10' href="mailto:leongl550@gmail.com"><p style={{ borderRadius: "50px" }}>leongl550@gmail.com</p></a>
+        <a className='list-none hidden sm:flex flex-row gap-10' href={"http://www.linkedin.com/in/leoleong86"} target="_blank" style={{ color: "white", backgroundColor: "#0A66C2",  padding: "1px 5px", borderRadius: "50px"  }}>Linkedin</a>
+        
         <ul className='list-none hidden sm:flex flex-row gap-10'>
           {navLinks.map((nav) => (
             <li
