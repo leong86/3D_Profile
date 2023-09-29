@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
@@ -6,9 +6,9 @@ import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
   const computer = useGLTF("./desktop_pc/scene.gltf");
-
+  const groupRef = useRef();
   return (
-    <mesh>
+    <group ref={groupRef} position={[2, 0, 0.7]}> {/* Set the desired pivot point */}
       <hemisphereLight intensity={0.15} groundColor='black' />
       <spotLight
         position={[-20, 50, 10]}
@@ -21,11 +21,11 @@ const Computers = ({ isMobile }) => {
       <pointLight intensity={1} />
       <primitive
         object={computer.scene}
-        scale={isMobile ? 0.7 : 0.75}
-        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-        rotation={[-0.01, -0.2, -0.1]}
+        scale={isMobile ? 0.7 : 0.7}
+        position={isMobile ? [0, -3, -2.2] : [-2.0, -0.3, -1]}
+        rotation={[-0.0, -0.2, 0]}
       />
-    </mesh>
+    </group>
   );
 };
 
@@ -57,8 +57,8 @@ const ComputersCanvas = () => {
     <Canvas
       frameloop='demand'
       shadows
-      dpr={[1, 2]}
-      camera={{ position: [20, 3, 5], fov: 25 }}
+      dpr={[20, 2]}
+      camera={{ position: [10, 10, 15], fov: 5 }}
       gl={{ preserveDrawingBuffer: true }}
     >
       <Suspense fallback={<CanvasLoader />}>
@@ -66,6 +66,7 @@ const ComputersCanvas = () => {
           enableZoom={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
+          // maxAzimuthAngle={Math.PI / 2}
         />
         <Computers isMobile={isMobile} />
       </Suspense>
